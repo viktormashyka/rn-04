@@ -1,6 +1,6 @@
 // import React from "react";
 import MapView, { Marker } from "react-native-maps";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 
 const MapScreen = () => {
   return (

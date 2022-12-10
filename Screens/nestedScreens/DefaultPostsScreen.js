@@ -44,11 +44,6 @@ const DefaultPostsScreen = ({ navigation, route }) => {
       <TouchableOpacity onPress={() => navigation.navigate("Comments")}>
         <Text style={styles.text}>Go to Comments!</Text>
       </TouchableOpacity>
-      <Button title="go to map" onPress={() => navigation.navigate("Map")} />
-      <Button
-        title="go to Comments"
-        onPress={() => navigation.navigate("Comments")}
-      />
     </View>
   );
 };

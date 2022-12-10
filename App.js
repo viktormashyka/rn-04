@@ -93,48 +93,4 @@ export default function App() {
   );
 }
 
-// <Ionicons name="log-out-outline" size={24} color={color} />
-
-// {/* <AuthStack.Screen
-//   name="Home"
-//   component={Home}
-//   options={{
-//     title: "Home screen",
-//     headerStyle: { backgroundColor: "#f4511e" },
-//     headerTintColor: "#fff",
-//     headerTitleStyle: { fontWeight: "bold", fontSize: 200 },
-//     headerRight: () => (
-//       <Button
-//         onPress={() => alert("Hey, it's me")}
-//         title="Press me"
-//         color="#fff"
-//       />
-//     ),
-//   }}
-// />; */}
-
-// {
-//   /* <View style={styles.container}>
-//   <ImageBackground
-//     style={styles.image}
-//     source={require("./img/Photo_BG_1.jpg")}
-//   >
-//     <RegistrationScreen />
-//     <LoginScreen />
-//     <StatusBar style="auto" />
-//   </ImageBackground>
-// </View> */
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//   },
-//   image: {
-//     flex: 1,
-//     resizeMode: "cover",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
+//  WARN  expo-app-loading is deprecated in favor of expo-splash-screen: use SplashScreen.preventAutoHideAsync() and SplashScreen.hideAsync() instead. https://docs.expo.dev/versions/latest/sdk/splash-screen/

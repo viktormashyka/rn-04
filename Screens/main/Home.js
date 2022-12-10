@@ -12,7 +12,7 @@ import PostsScreen from "./PostsScreen";
 import ProfileScreen from "./ProfileScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <Tabs.Navigator
       screenOptions={({ route }) => ({
@@ -28,11 +28,9 @@ const Home = () => {
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        tabBarActiveTintColor: "tomato",
+        tabBarInactiveTintColor: "gray",
       })}
-      tabBarOptions={{
-        activeTintColor: "tomato",
-        inactiveTintColor: "gray",
-      }}
     >
       <Tabs.Screen
         options={{ headerShown: false }}

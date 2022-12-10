@@ -10,6 +10,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+// import { useFonts } from "expo-font";
 
 const loadFonts = async () => {
   await Font.loadAsync({
@@ -25,8 +26,25 @@ import RegistrationScreen from "./Screens/auth/RegistrationScreen";
 import Home from "./Screens/main/Home";
 
 export default function App() {
+  // const [fontsLoaded] = useFonts({
+  //   // "Inter-Black": require("./assets/fonts/Inter-Black.otf"),
+  //   "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+  //   "Roboto-Bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+  // });
+
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded]);
+
+  // if (!fontsLoaded) {
+  //   return null;
+  // }
+
   const [isReady, setIsReady] = useState(false);
   // const routing = useRoute(null);
+
   if (!isReady) {
     return (
       <AppLoading
@@ -39,6 +57,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      {/* <NavigationContainer onLayout={onLayoutRootView}> */}
       <AuthStack.Navigator initialRouteName="Login">
         <AuthStack.Screen
           options={{ headerShown: false }}
@@ -58,26 +77,22 @@ export default function App() {
             title: "Home screen",
             headerStyle: { backgroundColor: "#f4511e" },
             headerTintColor: "#fff",
-            headerTitleStyle: { fontWeight: "bold", fontSize: 200 },
-            headerRight: () => (
-              // <Ionicons name="log-out-outline" size={24} color={color} />
-              <Button
-                onPress={() =>
-                  navigation.navigate("Login", {
-                    sessionId: 45,
-                    userId: "22e24",
-                  })
-                }
-                title="Log out"
-                color="#fff"
-              />
-            ),
+            headerTitleStyle: { fontFamily: "Roboto-Bold", fontSize: 16 },
+            // headerRight: () => (
+            //   <Button
+            //     onPress={() => navigation.navigate("Login")}
+            //     title="Log out"
+            //     color="#fff"
+            //   />
+            // ),
           }}
         />
       </AuthStack.Navigator>
     </NavigationContainer>
   );
 }
+
+// <Ionicons name="log-out-outline" size={24} color={color} />
 
 // {/* <AuthStack.Screen
 //   name="Home"

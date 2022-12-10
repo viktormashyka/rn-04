@@ -10,7 +10,6 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  ImageBackground,
 } from "react-native";
 
 const initialState = { name: "", email: "", password: "" };
@@ -24,17 +23,16 @@ const RegistrationScreen = ({ navigation, route }) => {
     Dimensions.get("window").width - 16 * 2
   );
 
-  useEffect(() => {
-    const onChange = () => {
-      const width = Dimensions.get("window").width - 16 * 2;
-      setDimensions(width);
-    };
-    // console.log("width: ", width);
-    Dimensions.addEventListener("change", onChange);
-    return () => {
-      Dimensions.removeEventListener("change", onChange);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const onChange = () => {
+  //     const width = Dimensions.get("window").width - 16 * 2;
+  //     setDimensions(width);
+  //   };
+  //   Dimensions.addEventListener("change", onChange);
+  //   return () => {
+  //     Dimensions.removeEventListener("change", onChange);
+  //   };
+  // }, []);
 
   const onLogin = () => {
     console.log("state: ", state);
@@ -44,7 +42,6 @@ const RegistrationScreen = ({ navigation, route }) => {
 
     navigation.navigate("Home", {
       screen: "Posts",
-      params: { userId: "e2ee4" },
     });
   };
 
@@ -56,10 +53,6 @@ const RegistrationScreen = ({ navigation, route }) => {
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
-          <ImageBackground
-            style={styles.image}
-            source={require("../../img/Photo_BG_1.jpg")}
-          />
           <View
             style={{
               ...styles.form,
@@ -103,16 +96,10 @@ const RegistrationScreen = ({ navigation, route }) => {
             >
               <Text style={styles.text}>Зареєструватися</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Login", {
-                  sessionId: 45,
-                  userId: "22e24",
-                })
-              }
-            >
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={styles.text}>
-                Вже є акаунт? <Text style={styles.text}>Увійти</Text>
+                Вже є акаунт?{" "}
+                <Text style={{ fontSize: 20, color: "#ff6347" }}>Увійти</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -127,7 +114,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     marginTop: "50%",
-    // paddingHorizontal: 16,
     backgroundColor: "#fff",
     borderTopStartRadius: 25,
     borderTopEndRadius: 25,
@@ -205,68 +191,10 @@ const styles = StyleSheet.create({
 
 export default RegistrationScreen;
 
-// import { StatusBar } from "expo-status-bar";
-// import {
-//   KeyboardAvoidingView,
-//   Keyboard,
-//   Platform,
-//   StyleSheet,
-//   Text,
-//   TextInput,
-//   TouchableWithoutFeedback,
-//   View,
-//   Alert,
-//   Button,
-// } from "react-native";
-// import React, { useState } from "react";
-// import { loadFonts } from "./loadFonts";
-
-// export default function App() {
-//   const [value, setValue] = useState("");
-//   const inputHandler = (text) => setValue(text);
-
-//   const [name, setName] = useState("");
-//   const [password, setPassword] = useState("");
-//   const nameHandler = (text) => setName(text);
-//   const passwordHandler = (text) => setPassword(text);
-//   const onLogin = () => {
-//     Alert.alert("Credentials", `${name} + ${password}`);
-//   };
-
-//   return (
-//     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-//       <View style={styles.container}>
-//         <KeyboardAvoidingView
-//           behavior={Platform.OS == "ios" ? "padding" : "height"}
-//         >
-//           <Text style={styles.text}>
-//             Open up App.js to start working on your app!
-//           </Text>
-//           <Text>Hello React native</Text>
-//           <TextInput
-//             placeholder="Type text"
-//             value={value}
-//             onChangeText={inputHandler}
-//           />
-//           <TextInput
-//             value={name}
-//             onChangeText={nameHandler}
-//             placeholder="Username"
-//             style={styles.input}
-//           />
-//           <TextInput
-//             value={password}
-//             onChangeText={passwordHandler}
-//             placeholder="Password"
-//             style={styles.input}
-//           />
-//           <Button title={"Login"} style={styles.input} onPress={onLogin} />
-//           <StatusBar style="auto" />
-//         </KeyboardAvoidingView>
-//       </View>
-//     </TouchableWithoutFeedback>
-//   );
-// }
+// <ImageBackground
+//   style={styles.image}
+//   source={require("../../img/Photo_BG_1.jpg")}
+// />;
 
 // // Шлях пишемо щодо компонента, де використовується <Image/>
 // // Локальне зображення
@@ -279,37 +207,3 @@ export default RegistrationScreen;
 //   /* <Image source={{uri: 'https://reactjs.org/logo-og.png'}}
 //        style={{width: 700, height: 700}} /> */
 // }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     height: Platform.OS === "ios" ? 50 : 100,
-//     ...Platform.select({
-//       ios: { backgroundColor: "#000000" },
-//       android: { backgroundColor: "#ffffff" },
-//     }),
-//     alignItems: "center",
-//     justifyContent: "flex-end",
-//     paddingBottom: 30,
-//   },
-//   text: {
-//     marginTop: 16,
-//     paddingVertical: 8,
-//     borderWidth: 4,
-//     borderColor: "#20232a",
-//     borderRadius: 6,
-//     backgroundColor: "#61dafb",
-//     color: "#20232a",
-//     textAlign: "center",
-//     fontSize: 30,
-//     fontWeight: "bold",
-//   },
-//   input: {
-//     width: 200,
-//     height: 44,
-//     padding: 10,
-//     borderWidth: 1,
-//     borderColor: "black",
-//     marginBottom: 10,
-//   },
-// });

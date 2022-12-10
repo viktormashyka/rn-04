@@ -10,8 +10,6 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
-  Button,
-  ImageBackground,
 } from "react-native";
 
 const initialState = { email: "", password: "" };
@@ -25,16 +23,16 @@ const LoginScreen = ({ navigation, route }) => {
     Dimensions.get("window").width - 16 * 2
   );
 
-  useEffect(() => {
-    const onChange = () => {
-      const width = Dimensions.get("window").width - 16 * 2;
-      setDimensions(width);
-    };
-    Dimensions.addEventListener("change", onChange);
-    return () => {
-      Dimensions.removeEventListener("change", onChange);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const onChange = () => {
+  //     const width = Dimensions.get("window").width - 16 * 2;
+  //     setDimensions(width);
+  //   };
+  //   Dimensions.addEventListener("change", onChange);
+  //   return () => {
+  //     Dimensions.removeEventListener("change", onChange);
+  //   };
+  // }, []);
 
   const onLogin = () => {
     console.log("state: ", state);
@@ -44,7 +42,6 @@ const LoginScreen = ({ navigation, route }) => {
 
     navigation.navigate("Home", {
       screen: "Posts",
-      params: { userId: "e2ee4" },
     });
   };
 
@@ -53,10 +50,6 @@ const LoginScreen = ({ navigation, route }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-        <ImageBackground
-          style={styles.image}
-          source={require("../../img/Photo_BG_1.jpg")}
-        />
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
@@ -95,15 +88,13 @@ const LoginScreen = ({ navigation, route }) => {
               <Text style={styles.text}>Увійти</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("Registration", {
-                  sessionId: 45,
-                  userId: "22e25",
-                })
-              }
+              onPress={() => navigation.navigate("Registration")}
             >
               <Text style={styles.text}>
-                Немає акаунта? <Text style={styles.text}>Зареєструватись</Text>
+                Немає акаунта?{" "}
+                <Text style={{ fontSize: 20, color: "#ff6347" }}>
+                  Зареєструватись
+                </Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -188,3 +179,8 @@ const styles = StyleSheet.create({
 });
 
 export default LoginScreen;
+
+// <ImageBackground
+//   style={styles.image}
+//   source={require("../../img/Photo_BG_1.jpg")}
+// />;

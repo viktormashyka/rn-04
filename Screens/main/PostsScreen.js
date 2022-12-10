@@ -1,66 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, FlatList, Image } from "react-native";
+import React from "react";
+import { moduleName } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import DefaultPostsScreen from "../nestedScreens/DefaultPostsScreen";
+import MapScreen from "../nestedScreens/MapScreen";
+import CommentsScreen from "../nestedScreens/CommentsScreen";
 
-const PostsScreen = ({ route }) => {
-  const [posts, setPosts] = useState([]);
-  console.log("route.params: ", route.params);
+const NestedScreen = createStackNavigator();
 
-  useEffect(() => {
-    if (route.params) {
-      setPosts((prevState) => [...prevState, route.params]);
-    }
-  }, [route.params]);
-  console.log("posts: ", posts);
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={posts}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.imageContainer}>
-            <Text>Here must be your photos</Text>
-            <Image source={{ uri: item.photo }} style={styles.image} />
-          </View>
-        )}
-      />
-      <TouchableOpacity
-        onPress={
-          () => alert("press Go to Map")
-          // navigation.navigate("Registration", {
-          //   sessionId: 45,
-          //   userId: "22e25",
-          // })
-        }
-      >
-        <Text style={styles.text}>Go to Map!</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={
-          () => alert("press Go to Comments")
-          // navigation.navigate("Registration", {
-          //   sessionId: 45,
-          //   userId: "22e25",
-          // })
-        }
-      >
-        <Text style={styles.text}>Go to Comments!</Text>
-      </TouchableOpacity>
-    </View>
-  );
+const PostsScreen = () => {
+  <NestedScreen.Navigator>
+    <NestedScreen.Screen name="DefaultPosts" component={DefaultPostsScreen} />
+    <NestedScreen.Screen name="Map" component={MapScreen} />
+    <NestedScreen.Screen name="Comments" component={CommentsScreen} />
+  </NestedScreen.Navigator>;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  imageContainer: {
-    marginBottom: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: { width: 350, height: 200 },
-});
 
 export default PostsScreen;

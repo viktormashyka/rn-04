@@ -10,11 +10,13 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 
 const initialState = { email: "", password: "" };
 
-const LoginScreen = ({ navigation, route }) => {
+const LoginScreen = ({ navigation }) => {
+  console.log("navigation: ", navigation);
   console.log("Platform.OS: ", Platform.OS);
   const [state, setState] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -23,21 +25,24 @@ const LoginScreen = ({ navigation, route }) => {
     Dimensions.get("window").width - 16 * 2
   );
 
-  // useEffect(() => {
-  //   const onChange = () => {
-  //     const width = Dimensions.get("window").width - 16 * 2;
-  //     setDimensions(width);
-  //   };
-  //   Dimensions.addEventListener("change", onChange);
-  //   return () => {
-  //     Dimensions.removeEventListener("change", onChange);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const onChange = () => {
+      const width = Dimensions.get("window").width - 16 * 2;
+      setDimensions(width);
+    };
+    Dimensions.addEventListener("change", onChange);
+    return () => {
+      Dimensions.removeEventListener("change", onChange);
+    };
+  }, []);
 
-  const onLogin = () => {
+  const keyboardHide = () => {
     console.log("state: ", state);
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+  };
+
+  const handleSubmit = () => {
     setState(initialState);
 
     navigation.navigate("Home", {
@@ -45,11 +50,13 @@ const LoginScreen = ({ navigation, route }) => {
     });
   };
 
-  // const { userId } = route.params;
-
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
+        <ImageBackground
+          style={styles.image}
+          source={require("../../assets/img/Photo_BG_1.jpg")}
+        />
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
@@ -83,7 +90,7 @@ const LoginScreen = ({ navigation, route }) => {
             <TouchableOpacity
               activeOpacity={0.8}
               style={styles.button}
-              onPress={onLogin}
+              onPress={handleSubmit}
             >
               <Text style={styles.text}>Увійти</Text>
             </TouchableOpacity>
@@ -107,14 +114,13 @@ const LoginScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    marginTop: "50%",
+    // width: "100%",
+    // marginTop: "50%",
     // paddingHorizontal: 16,
     backgroundColor: "#fff",
-    borderTopStartRadius: 25,
-    borderTopEndRadius: 25,
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
+    // borderTopStartRadius: 25,
+    // borderTopEndRadius: 25,
+    // justifyContent: "space-between",
   },
   title: {
     marginTop: 92,
@@ -176,11 +182,13 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     textAlign: "center",
   },
+
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
 });
 
 export default LoginScreen;
-
-// <ImageBackground
-//   style={styles.image}
-//   source={require("../../img/Photo_BG_1.jpg")}
-// />;

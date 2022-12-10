@@ -10,11 +10,13 @@ import {
   View,
   TouchableOpacity,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 
 const initialState = { name: "", email: "", password: "" };
 
-const RegistrationScreen = ({ navigation, route }) => {
+const RegistrationScreen = ({ navigation }) => {
+  console.log("navigation: ", navigation);
   console.log("Platform.OS: ", Platform.OS);
   const [state, setState] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
@@ -23,21 +25,24 @@ const RegistrationScreen = ({ navigation, route }) => {
     Dimensions.get("window").width - 16 * 2
   );
 
-  // useEffect(() => {
-  //   const onChange = () => {
-  //     const width = Dimensions.get("window").width - 16 * 2;
-  //     setDimensions(width);
-  //   };
-  //   Dimensions.addEventListener("change", onChange);
-  //   return () => {
-  //     Dimensions.removeEventListener("change", onChange);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const onChange = () => {
+      const width = Dimensions.get("window").width - 16 * 2;
+      setDimensions(width);
+    };
+    Dimensions.addEventListener("change", onChange);
+    return () => {
+      Dimensions.removeEventListener("change", onChange);
+    };
+  }, []);
 
-  const onLogin = () => {
+  const keyboardHide = () => {
     console.log("state: ", state);
     setIsShowKeyboard(false);
     Keyboard.dismiss();
+  };
+
+  const handleSubmit = () => {
     setState(initialState);
 
     navigation.navigate("Home", {
@@ -45,11 +50,13 @@ const RegistrationScreen = ({ navigation, route }) => {
     });
   };
 
-  // const { userId } = route.params;
-
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={keyboardHide}>
       <View style={styles.container}>
+        <ImageBackground
+          style={styles.image}
+          source={require("../../assets/img/Photo_BG_1.jpg")}
+        />
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
@@ -92,7 +99,7 @@ const RegistrationScreen = ({ navigation, route }) => {
             <TouchableOpacity
               activeOpacity={0.8}
               style={styles.button}
-              onPress={onLogin}
+              onPress={handleSubmit}
             >
               <Text style={styles.text}>Зареєструватися</Text>
             </TouchableOpacity>
@@ -112,13 +119,12 @@ const RegistrationScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%",
-    marginTop: "50%",
+    // width: "100%",
+    // marginTop: "50%",
     backgroundColor: "#fff",
-    borderTopStartRadius: 25,
-    borderTopEndRadius: 25,
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
+    // borderTopStartRadius: 25,
+    // borderTopEndRadius: 25,
+    // justifyContent: "space-between",
   },
   title: {
     marginTop: 92,
@@ -185,25 +191,8 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-end",
   },
 });
 
 export default RegistrationScreen;
-
-// <ImageBackground
-//   style={styles.image}
-//   source={require("../../img/Photo_BG_1.jpg")}
-// />;
-
-// // Шлях пишемо щодо компонента, де використовується <Image/>
-// // Локальне зображення
-// {
-//   /* <Image source={require('./logo.png')}/> */
-// }
-
-// // Зображення з мережі
-// {
-//   /* <Image source={{uri: 'https://reactjs.org/logo-og.png'}}
-//        style={{width: 700, height: 700}} /> */
-// }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -25,7 +25,7 @@ const DefaultPostsScreen = ({ navigation, route }) => {
       <Button
         onPress={() => navigation.navigate("Login")}
         title="Log out"
-        color="#fff"
+        color="#212121"
       />
       <Text>DefaultPostsScreen!</Text>
       <FlatList

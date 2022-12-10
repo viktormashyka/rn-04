@@ -16,8 +16,8 @@ import {
 const initialState = { email: "", password: "" };
 
 const LoginScreen = ({ navigation }) => {
-  console.log("navigation: ", navigation);
-  console.log("Platform.OS: ", Platform.OS);
+  // console.log("navigation: ", navigation);
+  // console.log("Platform.OS: ", Platform.OS);
   const [state, setState] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
@@ -37,12 +37,12 @@ const LoginScreen = ({ navigation }) => {
   }, []);
 
   const keyboardHide = () => {
-    console.log("state: ", state);
     setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
 
   const handleSubmit = () => {
+    console.log("state: ", state);
     setState(initialState);
 
     navigation.navigate("Home", {

@@ -74,6 +74,7 @@ export default function App() {
           name="Home"
           component={Home}
           options={{
+            headerShown: false,
             title: "Home screen",
             headerStyle: { backgroundColor: "#f4511e" },
             headerTintColor: "#fff",

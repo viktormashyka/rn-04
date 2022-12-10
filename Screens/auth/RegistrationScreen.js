@@ -16,8 +16,8 @@ import {
 const initialState = { name: "", email: "", password: "" };
 
 const RegistrationScreen = ({ navigation }) => {
-  console.log("navigation: ", navigation);
-  console.log("Platform.OS: ", Platform.OS);
+  // console.log("navigation: ", navigation);
+  // console.log("Platform.OS: ", Platform.OS);
   const [state, setState] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
@@ -37,12 +37,12 @@ const RegistrationScreen = ({ navigation }) => {
   }, []);
 
   const keyboardHide = () => {
-    console.log("state: ", state);
     setIsShowKeyboard(false);
     Keyboard.dismiss();
   };
 
   const handleSubmit = () => {
+    console.log("state: ", state);
     setState(initialState);
 
     navigation.navigate("Home", {
@@ -154,7 +154,9 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
 
-  form: { marginHorizontal: 16 },
+  form: {
+    marginHorizontal: 16,
+  },
 
   button: {
     height: 50,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Camera } from "expo-camera";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Location from "expo-location";
@@ -11,15 +11,17 @@ const CreatePostsScreen = ({ navigation }) => {
   // const [errorMsg, setErrorMsg] = useState(null);
 
   const takePhoto = async () => {
+    console.log("takePhoto...");
     const photo = await camera.takePictureAsync();
     const location = await Location.getCurrentPositionAsync();
-    console.log("latitude: ", location.coords.latitude);
-    console.log("longitude: ", location.coords.longitude);
+    console.log("latitude", location.coords.latitude);
+    console.log("longitude", location.coords.longitude);
     setPhoto(photo.uri);
-    console.log("camera: ", photo.uri);
+    console.log("photo", photo);
   };
 
   const sendPhoto = () => {
+    console.log("sendPhoto...");
     console.log("navigation: ", navigation);
     navigation.navigate("DefaultPosts", { photo });
   };
@@ -45,22 +47,12 @@ const CreatePostsScreen = ({ navigation }) => {
             <Image style={styles.image} source={{ uri: photo }} />
           </View>
         )}
-        <TouchableOpacity
-          style={styles.snapContainer}
-          onPress={() => {
-            takePhoto;
-          }}
-        >
+        <TouchableOpacity style={styles.snapContainer} onPress={takePhoto}>
           <Text style={styles.snap}>SNAP</Text>
         </TouchableOpacity>
       </Camera>
       <View>
-        <TouchableOpacity
-          style={styles.sendBtn}
-          onPress={() => {
-            sendPhoto;
-          }}
-        >
+        <TouchableOpacity style={styles.sendBtn} onPress={sendPhoto}>
           <Text style={styles.sendLabel}>SEND</Text>
         </TouchableOpacity>
       </View>
@@ -74,7 +66,6 @@ const styles = StyleSheet.create({
   },
   camera: {
     height: "70%",
-    // flex: 1,
     marginHorizontal: 2,
     marginTop: 40,
     borderRadius: 10,
@@ -115,6 +106,7 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: 200,
+    borderRadius: 10,
   },
 });
 

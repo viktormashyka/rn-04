@@ -1,12 +1,33 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Keyboard,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Platform,
+  TextInput,
+} from "react-native";
 import { Camera } from "expo-camera";
 // import { TouchableOpacity } from "react-native-gesture-handler";
 import * as Location from "expo-location";
 
+const initialState = { pictureTitle: "", pictureLocation: "" };
+
 const CreatePostsScreen = ({ navigation }) => {
+  const [state, setState] = useState(initialState);
+  const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+
   const [camera, setCamera] = useState(null);
   const [photo, setPhoto] = useState(null);
+
+  const keyboardHide = () => {
+    setIsShowKeyboard(false);
+    Keyboard.dismiss();
+  };
 
   // const [errorMsg, setErrorMsg] = useState(null);
 
@@ -16,14 +37,17 @@ const CreatePostsScreen = ({ navigation }) => {
     const location = await Location.getCurrentPositionAsync();
     console.log("latitude", location.coords.latitude);
     console.log("longitude", location.coords.longitude);
+    console.log("photo: ", photo);
     setPhoto(photo.uri);
-    console.log("photo", photo);
+    console.log("photo.uri", photo);
   };
 
   const sendPhoto = () => {
     console.log("sendPhoto...");
     console.log("navigation: ", navigation);
-    navigation.navigate("DefaultPosts", { photo });
+    console.log("state: ", state);
+    setState(initialState);
+    navigation.navigate("DefaultPosts", { photo, state });
   };
 
   // useEffect(() => {
@@ -40,23 +64,55 @@ const CreatePostsScreen = ({ navigation }) => {
   // }, []);
 
   return (
-    <View style={styles.container}>
-      <Camera style={styles.camera} ref={setCamera}>
-        {photo && (
-          <View style={styles.takePhotoContainer}>
-            <Image style={styles.image} source={{ uri: photo }} />
+    <TouchableWithoutFeedback onPress={keyboardHide}>
+      <View style={styles.container}>
+        <Camera style={styles.camera} ref={setCamera}>
+          {photo && (
+            <View style={styles.takePhotoContainer}>
+              <Image style={styles.image} source={{ uri: photo }} />
+            </View>
+          )}
+          <TouchableOpacity style={styles.snapContainer} onPress={takePhoto}>
+            <Text style={styles.snap}>SNAP</Text>
+          </TouchableOpacity>
+        </Camera>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+        >
+          <View
+            style={{
+              ...styles.form,
+              marginBottom: isShowKeyboard ? 20 : 150,
+            }}
+          >
+            <TextInput
+              value={state.pictureTitle}
+              placeholder="Title"
+              style={styles.input}
+              onFocus={() => setIsShowKeyboard(true)}
+              onChangeText={(value) =>
+                setState((prevState) => ({ ...prevState, pictureTitle: value }))
+              }
+            />
+            <TextInput
+              value={state.pictureLocation}
+              placeholder="Location"
+              style={styles.input}
+              onFocus={() => setIsShowKeyboard(true)}
+              onChangeText={(value) =>
+                setState((prevState) => ({
+                  ...prevState,
+                  pictureLocation: value,
+                }))
+              }
+            />
+            <TouchableOpacity style={styles.sendBtn} onPress={sendPhoto}>
+              <Text style={styles.sendLabel}>SEND</Text>
+            </TouchableOpacity>
           </View>
-        )}
-        <TouchableOpacity style={styles.snapContainer} onPress={takePhoto}>
-          <Text style={styles.snap}>SNAP</Text>
-        </TouchableOpacity>
-      </Camera>
-      <View>
-        <TouchableOpacity style={styles.sendBtn} onPress={sendPhoto}>
-          <Text style={styles.sendLabel}>SEND</Text>
-        </TouchableOpacity>
+        </KeyboardAvoidingView>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -65,9 +121,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   camera: {
-    height: "70%",
+    height: "50%",
     marginHorizontal: 2,
     marginTop: 40,
+    marginBottom: 10,
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "flex-end",
@@ -107,6 +164,28 @@ const styles = StyleSheet.create({
     height: 200,
     width: 200,
     borderRadius: 10,
+  },
+
+  form: { marginHorizontal: 16 },
+
+  input: {
+    height: 50,
+    backgroundColor: "#F6F6F6",
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: "#E8E8E8",
+    borderRadius: 8,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#212121",
+    marginBottom: 10,
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    lineHeight: 19,
+    letterSpacing: 0,
+    textAlign: "left",
+    // color: "#BDBDBD",
+    color: "#212121",
   },
 });
 

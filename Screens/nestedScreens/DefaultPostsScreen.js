@@ -6,7 +6,6 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
-  Button,
 } from "react-native";
 
 const DefaultPostsScreen = ({ navigation, route }) => {
@@ -22,12 +21,6 @@ const DefaultPostsScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <Button
-        onPress={() => navigation.navigate("Login")}
-        title="Log out"
-        color="#212121"
-      />
-      <Text>DefaultPostsScreen!</Text>
       <FlatList
         data={posts}
         keyExtractor={(item, index) => index.toString()}
@@ -35,6 +28,8 @@ const DefaultPostsScreen = ({ navigation, route }) => {
           <View style={styles.imageContainer}>
             <Text>Here must be your photos</Text>
             <Image source={{ uri: item.photo }} style={styles.image} />
+            <Text>Title: {item.state.pictureTitle}</Text>
+            <Text>Location: {item.state.pictureLocation}</Text>
           </View>
         )}
       />
@@ -59,6 +54,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: { width: 350, height: 200 },
+
+  text: {
+    marginTop: 16,
+    fontFamily: "Roboto-Regular",
+    fontStyle: "normal",
+    color: "#1B4371",
+    textAlign: "center",
+    fontSize: 16,
+    lineHeight: 19,
+  },
 });
 
 export default DefaultPostsScreen;

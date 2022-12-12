@@ -67,10 +67,10 @@ const LoginScreen = ({ navigation }) => {
               width: dimensions,
             }}
           >
-            <Text style={styles.title}>Увійти</Text>
+            <Text style={styles.title}>Login</Text>
             <TextInput
               value={state.email}
-              placeholder="Адреса електронної пошти"
+              placeholder="Email"
               style={styles.input}
               onFocus={() => setIsShowKeyboard(true)}
               onChangeText={(value) =>
@@ -79,7 +79,7 @@ const LoginScreen = ({ navigation }) => {
             />
             <TextInput
               value={state.password}
-              placeholder="Пароль"
+              placeholder="Password"
               secureTextEntry={true}
               style={styles.input}
               onFocus={() => setIsShowKeyboard(true)}
@@ -92,15 +92,15 @@ const LoginScreen = ({ navigation }) => {
               style={styles.button}
               onPress={handleSubmit}
             >
-              <Text style={styles.text}>Увійти</Text>
+              <Text style={styles.text}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate("Registration")}
             >
               <Text style={styles.text}>
-                Немає акаунта?{" "}
+                Don't have account?{" "}
                 <Text style={{ fontSize: 20, color: "#ff6347" }}>
-                  Зареєструватись
+                  Registration
                 </Text>
               </Text>
             </TouchableOpacity>

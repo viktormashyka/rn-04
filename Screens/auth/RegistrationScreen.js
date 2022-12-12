@@ -67,10 +67,10 @@ const RegistrationScreen = ({ navigation }) => {
               width: dimensions,
             }}
           >
-            <Text style={styles.title}>Реєстрація</Text>
+            <Text style={styles.title}>Registration</Text>
             <TextInput
               value={state.name}
-              placeholder="Логін"
+              placeholder="Login"
               style={styles.input}
               onFocus={() => setIsShowKeyboard(true)}
               onChangeText={(value) =>
@@ -79,7 +79,7 @@ const RegistrationScreen = ({ navigation }) => {
             />
             <TextInput
               value={state.email}
-              placeholder="Адреса електронної пошти"
+              placeholder="Email"
               style={styles.input}
               onFocus={() => setIsShowKeyboard(true)}
               onChangeText={(value) =>
@@ -88,7 +88,7 @@ const RegistrationScreen = ({ navigation }) => {
             />
             <TextInput
               value={state.password}
-              placeholder="Пароль"
+              placeholder="Password"
               secureTextEntry={true}
               style={styles.input}
               onFocus={() => setIsShowKeyboard(true)}
@@ -101,12 +101,12 @@ const RegistrationScreen = ({ navigation }) => {
               style={styles.button}
               onPress={handleSubmit}
             >
-              <Text style={styles.text}>Зареєструватися</Text>
+              <Text style={styles.text}>Registration</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={styles.text}>
-                Вже є акаунт?{" "}
-                <Text style={{ fontSize: 20, color: "#ff6347" }}>Увійти</Text>
+                Do you have account?{" "}
+                <Text style={{ fontSize: 20, color: "#ff6347" }}>Login</Text>
               </Text>
             </TouchableOpacity>
           </View>

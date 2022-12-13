@@ -150,7 +150,12 @@ const styles = StyleSheet.create({
     color: "#212121",
   },
 
-  form: { marginHorizontal: 16 },
+  form: {
+    marginHorizontal: 16,
+    // flex: 1,
+    // borderTopStartRadius: 25,
+    // borderTopEndRadius: 25,
+  },
 
   button: {
     height: 50,
